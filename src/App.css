@@ -1,38 +1,955 @@
+/* ========================================
+   RESET ET BASE
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* ========================================
+   LAYOUT PRINCIPAL
+   ======================================== */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+.simple-navigation {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.simple-navigation button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.simple-navigation button:hover {
+  background: #5a6fd8;
+  transform: translateY(-1px);
+}
+
+.user-status {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   TYPOGRAPHIE
+   ======================================== */
+h1 {
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* ========================================
+   PAGES
+   ======================================== */
+.home-page,
+.admin-conferences-page,
+.admin-users-page,
+.login-page,
+.signup-page,
+.conference-detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   CARTES DE CONFÉRENCES
+   ======================================== */
+.conferences-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.conference-card {
+  background: white;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.conference-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.conference-header {
+  height: 120px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--main-color, #667eea),
+    var(--second-color, #764ba2)
+  );
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: flex-start;
+  padding: 1rem;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.conference-header h3 {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes App-logo-spin {
-  from {
+.conference-header .conference-date {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.conference-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.conference-content {
+  padding: 1.5rem;
+  background: white;
+}
+
+.conference-content h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.conference-content p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.conference-content .description {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.conference-content .duration,
+.conference-content .speaker {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.conference-content strong {
+  color: #667eea;
+}
+
+.conference-footer {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Cartes admin - pas d'image, header plus compact */
+.conference-card.admin .conference-header {
+  height: 100px;
+  background: linear-gradient(
+    135deg,
+    var(--main-color, #667eea),
+    var(--second-color, #764ba2)
+  );
+}
+
+.conference-card.admin .conference-content {
+  padding: 1.5rem;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.conference-card.admin .conference-footer {
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-top: none;
+}
+
+/* ========================================
+   BOUTONS
+   ======================================== */
+.btn-details {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-details:hover {
+  background: #5a6fd8;
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #218838;
+  transform: translateY(-1px);
+}
+
+/* Boutons d'action admin */
+.conference-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit {
+  background: #28a745;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #218838;
+  transform: translateY(-1px);
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+/* ========================================
+   CARTES UTILISATEURS
+   ======================================== */
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.user-card {
+  background: white;
+  border: none;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user-type {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.user-type.user {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.user-type.admin {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.user-content {
+  margin-bottom: 1rem;
+}
+
+.btn-promote {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-promote:hover {
+  background: #f57c00;
+}
+
+/* ========================================
+   FORMULAIRES
+   ======================================== */
+.conference-form,
+.login-form,
+.signup-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input[type="color"] {
+  height: 40px;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.form-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.form-actions button[type="submit"] {
+  background: #667eea;
+  color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+  background: #5a6fd8;
+  transform: translateY(-1px);
+}
+
+.form-actions button[type="button"] {
+  background: #6c757d;
+  color: white;
+}
+
+.form-actions button[type="button"]:hover {
+  background: #5a6268;
+}
+
+/* ========================================
+   MODALES
+   ======================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  padding: 5rem 2rem 2rem 2rem;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: #667eea;
+  color: white;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: none;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #f0f0f0;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+/* Formulaire de conférence dans modal */
+.conference-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.conference-form .form-group {
+  margin-bottom: 0;
+}
+
+.conference-form .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.conference-form input,
+.conference-form textarea {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  transition: border-color 0.2s ease;
+}
+
+.conference-form input:focus,
+.conference-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.conference-form h3 {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  grid-column: 1 / -1;
+}
+
+.conference-form .form-actions {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  grid-column: 1 / -1;
+}
+
+/* ========================================
+   PAGE DÉTAIL CONFÉRENCE
+   ======================================== */
+.conference-detail-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.conference-detail {
+  background: white;
+  border: 2px solid;
+  border-image: linear-gradient(
+      135deg,
+      var(--main-color, #667eea),
+      var(--second-color, #764ba2)
+    )
+    1;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.conference-detail-header {
+  position: relative;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #333;
+  padding: 2rem;
+  border-bottom: none;
+}
+
+.conference-detail-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.conference-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conference-detail-title h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+}
+
+.conference-detail-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.conference-date,
+.conference-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.conference-detail-content {
+  padding: 2rem;
+}
+
+.conference-section {
+  margin-bottom: 2rem;
+}
+
+.conference-section h2 {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+  font-weight: 600;
+}
+
+.conference-section p {
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+/* Intervenants et organisateurs */
+.speakers-list,
+.stakeholders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.speaker-card,
+.stakeholder-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.speaker-card:hover,
+.stakeholder-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.speaker-avatar,
+.stakeholder-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.stakeholder-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.speaker-info h3,
+.stakeholder-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.stakeholder-job {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ========================================
+   ÉTATS ET MESSAGES
+   ======================================== */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
+  }
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  grid-column: 1 / -1;
+}
+
+.success {
+  background: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   PAGE ACCÈS REFUSÉ
+   ======================================== */
+.access-denied {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.access-denied h1 {
+  color: #dc3545;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.access-denied .icon {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #dc3545;
+}
+
+.access-denied p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.btn-back {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-back:hover {
+  background: #555;
+}
+
+/* ========================================
+   CLASSES UTILITAIRES
+   ======================================== */
+.text-center {
+  text-align: center;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.note {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #bbdefb;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.form-note {
+  text-align: center;
+  color: #666;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  grid-column: 1 / -1;
+}
+
+/* ========================================
+   DESIGN RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .simple-navigation {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-left,
+  .nav-center,
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .conferences-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .conference-form {
+    grid-template-columns: 1fr;
+  }
+
+  .conference-detail-page {
+    padding: 1rem;
+  }
+
+  .conference-detail-header {
+    padding: 1.5rem;
+  }
+
+  .conference-detail-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .conference-detail-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .conference-detail-content {
+    padding: 1.5rem;
+  }
+
+  .speakers-list,
+  .stakeholders-list {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .modal {
+    max-width: 100%;
   }
 }

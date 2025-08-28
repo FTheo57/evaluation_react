@@ -6,18 +6,26 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
 
   if (!isAuthenticated()) {
     return (
-      <div className="protected-route">
-        <h2>Accès refusé</h2>
+      <div className="access-denied">
+        <div className="icon">🔒</div>
+        <h1>Accès refusé</h1>
         <p>Vous devez être connecté pour accéder à cette page.</p>
+        <a href="/" className="btn-back">
+          Retour à l'accueil
+        </a>
       </div>
     );
   }
 
   if (requireAdmin && !isAdmin()) {
     return (
-      <div className="protected-route">
-        <h2>Accès refusé</h2>
+      <div className="access-denied">
+        <div className="icon">🚫</div>
+        <h1>Accès refusé</h1>
         <p>Vous devez être administrateur pour accéder à cette page.</p>
+        <a href="/" className="btn-back">
+          Retour à l'accueil
+        </a>
       </div>
     );
   }

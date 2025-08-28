@@ -23,12 +23,29 @@ export const AuthProvider = ({ children }) => {
       // Debug: afficher la réponse complète
       console.log("Réponse complète de l'API:", response);
 
-      // Déterminer le type d'utilisateur basé sur l'ID
-      // Pour l'instant, on considère que les utilisateurs avec "admin" dans l'ID sont des admins
-      const userType = id.includes("admin") ? "admin" : "user";
-
       // L'API retourne directement le token JWT comme une chaîne
       const token = response;
+
+      // Vérifier le statut admin via la liste des utilisateurs
+      let userType = "user"; // Par défaut
+      try {
+        const users = await apiService.getUsers(token);
+        console.log("Liste des utilisateurs:", users);
+
+        // Chercher l'utilisateur connecté dans la liste
+        const currentUser = users.find((user) => user.id === id);
+        console.log("Utilisateur actuel trouvé:", currentUser);
+
+        if (currentUser && currentUser.type === "admin") {
+          userType = "admin";
+        }
+      } catch (usersError) {
+        console.log(
+          "Erreur lors de la récupération des utilisateurs:",
+          usersError
+        );
+        // Si la récupération échoue, on garde le type par défaut
+      }
 
       const userData = {
         id: id,

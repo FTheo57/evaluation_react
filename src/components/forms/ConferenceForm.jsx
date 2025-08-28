@@ -15,11 +15,6 @@ const ConferenceForm = ({ conference = null, onSuccess, onCancel }) => {
     duration: conference?.duration || "",
     mainColor: conference?.design?.mainColor || "#007bff",
     secondColor: conference?.design?.secondColor || "#6c757d",
-    // Adresse
-    addressl1: conference?.osMap?.addressl1 || "",
-    addressl2: conference?.osMap?.addressl2 || "",
-    postalCode: conference?.osMap?.postalCode || "",
-    city: conference?.osMap?.city || "",
     // Speaker obligatoire
     speakerFirstname: conference?.speakers?.[0]?.firstname || "",
     speakerLastname: conference?.speakers?.[0]?.lastname || "",
@@ -77,10 +72,10 @@ const ConferenceForm = ({ conference = null, onSuccess, onCancel }) => {
           secondColor: formData.secondColor,
         },
         osMap: {
-          addressl1: formData.addressl1 || "",
-          addressl2: formData.addressl2 || "",
-          postalCode: formData.postalCode || "",
-          city: formData.city || "",
+          addressl1: "",
+          addressl2: "",
+          postalCode: "",
+          city: "",
           coordinates: [],
         },
         speakers: [
@@ -121,248 +116,244 @@ const ConferenceForm = ({ conference = null, onSuccess, onCancel }) => {
   };
 
   return (
-    <div className="conference-form">
-      <h2>
-        {conference
-          ? "Modifier la conférence"
-          : "Créer une nouvelle conférence"}
-      </h2>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Titre * :</label>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Date * :</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Description * :</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-            rows="3"
-          />
-        </div>
-
-        <div>
-          <label>Image URL * :</label>
-          <input
-            type="url"
-            name="img"
-            value={formData.img}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-            placeholder="https://example.com/image.jpg"
-          />
-        </div>
-
-        <div>
-          <label>Contenu * :</label>
-          <textarea
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-            rows="5"
-          />
-        </div>
-
-        <div>
-          <label>Durée :</label>
-          <input
-            type="text"
-            name="duration"
-            value={formData.duration}
-            onChange={handleChange}
-            disabled={isLoading}
-            placeholder="ex: 2h30"
-          />
-        </div>
-
-        <h3>Adresse (optionnel)</h3>
-        <div>
-          <label>Adresse ligne 1 :</label>
-          <input
-            type="text"
-            name="addressl1"
-            value={formData.addressl1}
-            onChange={handleChange}
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Adresse ligne 2 :</label>
-          <input
-            type="text"
-            name="addressl2"
-            value={formData.addressl2}
-            onChange={handleChange}
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Code postal :</label>
-          <input
-            type="text"
-            name="postalCode"
-            value={formData.postalCode}
-            onChange={handleChange}
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Ville :</label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            disabled={isLoading}
-          />
-        </div>
-
-        <h3>Intervenant (obligatoire)</h3>
-        <div>
-          <label>Prénom de l'intervenant * :</label>
-          <input
-            type="text"
-            name="speakerFirstname"
-            value={formData.speakerFirstname}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Nom de l'intervenant * :</label>
-          <input
-            type="text"
-            name="speakerLastname"
-            value={formData.speakerLastname}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        <h3>Organisateur (obligatoire)</h3>
-        <div>
-          <label>Prénom de l'organisateur * :</label>
-          <input
-            type="text"
-            name="stakeholderFirstname"
-            value={formData.stakeholderFirstname}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Nom de l'organisateur * :</label>
-          <input
-            type="text"
-            name="stakeholderLastname"
-            value={formData.stakeholderLastname}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Poste de l'organisateur :</label>
-          <input
-            type="text"
-            name="stakeholderJob"
-            value={formData.stakeholderJob}
-            onChange={handleChange}
-            disabled={isLoading}
-            placeholder="ex: Directeur, Manager..."
-          />
-        </div>
-
-        <div>
-          <label>Image de l'organisateur :</label>
-          <input
-            type="url"
-            name="stakeholderImg"
-            value={formData.stakeholderImg}
-            onChange={handleChange}
-            disabled={isLoading}
-            placeholder="https://example.com/photo.jpg"
-          />
-        </div>
-
-        <h3>Design</h3>
-        <div>
-          <label>Couleur principale * :</label>
-          <input
-            type="color"
-            name="mainColor"
-            value={formData.mainColor}
-            onChange={handleChange}
-            disabled={isLoading}
-          />
-        </div>
-
-        <div>
-          <label>Couleur secondaire * :</label>
-          <input
-            type="color"
-            name="secondColor"
-            value={formData.secondColor}
-            onChange={handleChange}
-            disabled={isLoading}
-          />
-        </div>
-
-        <p className="form-note">
-          <small>* Champs obligatoires</small>
-        </p>
-
-        {error && <p className="error">{error}</p>}
-
-        <div className="form-actions">
-          <button type="submit" disabled={isLoading}>
-            {isLoading
-              ? "Enregistrement..."
-              : conference
-              ? "Modifier"
-              : "Créer"}
-          </button>
-          <button type="button" onClick={onCancel} disabled={isLoading}>
-            Annuler
+    <div className="modal-overlay" onClick={onCancel}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>
+            {conference
+              ? "Modifier la conférence"
+              : "Créer une nouvelle conférence"}
+          </h2>
+          <button
+            type="button"
+            className="modal-close"
+            onClick={onCancel}
+            aria-label="Fermer"
+          >
+            ×
           </button>
         </div>
-      </form>
+
+        <div className="modal-body">
+          <form onSubmit={handleSubmit} className="conference-form">
+            <div className="form-group">
+              <label htmlFor="title">Titre * :</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                placeholder="Titre de la conférence"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="date">Date * :</label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="duration">Durée :</label>
+              <input
+                type="text"
+                id="duration"
+                name="duration"
+                value={formData.duration}
+                onChange={handleChange}
+                disabled={isLoading}
+                placeholder="ex: 2h30"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="img">Image URL * :</label>
+              <input
+                type="url"
+                id="img"
+                name="img"
+                value={formData.img}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label htmlFor="description">Description * :</label>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                rows="2"
+                placeholder="Description courte de la conférence"
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label htmlFor="content">Contenu * :</label>
+              <textarea
+                id="content"
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                rows="3"
+                placeholder="Contenu détaillé de la conférence"
+              />
+            </div>
+
+            <h3>Intervenant (obligatoire)</h3>
+            <div className="form-group">
+              <label htmlFor="speakerFirstname">
+                Prénom de l'intervenant * :
+              </label>
+              <input
+                type="text"
+                id="speakerFirstname"
+                name="speakerFirstname"
+                value={formData.speakerFirstname}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                placeholder="Jean"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="speakerLastname">Nom de l'intervenant * :</label>
+              <input
+                type="text"
+                id="speakerLastname"
+                name="speakerLastname"
+                value={formData.speakerLastname}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                placeholder="Dupont"
+              />
+            </div>
+
+            <h3>Organisateur (obligatoire)</h3>
+            <div className="form-group">
+              <label htmlFor="stakeholderFirstname">
+                Prénom de l'organisateur * :
+              </label>
+              <input
+                type="text"
+                id="stakeholderFirstname"
+                name="stakeholderFirstname"
+                value={formData.stakeholderFirstname}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                placeholder="Marie"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="stakeholderLastname">
+                Nom de l'organisateur * :
+              </label>
+              <input
+                type="text"
+                id="stakeholderLastname"
+                name="stakeholderLastname"
+                value={formData.stakeholderLastname}
+                onChange={handleChange}
+                required
+                disabled={isLoading}
+                placeholder="Martin"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="stakeholderJob">Poste de l'organisateur :</label>
+              <input
+                type="text"
+                id="stakeholderJob"
+                name="stakeholderJob"
+                value={formData.stakeholderJob}
+                onChange={handleChange}
+                disabled={isLoading}
+                placeholder="ex: Directeur, Manager..."
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="stakeholderImg">Image de l'organisateur :</label>
+              <input
+                type="url"
+                id="stakeholderImg"
+                name="stakeholderImg"
+                value={formData.stakeholderImg}
+                onChange={handleChange}
+                disabled={isLoading}
+                placeholder="https://example.com/photo.jpg"
+              />
+            </div>
+
+            <h3>Design</h3>
+            <div className="form-group">
+              <label htmlFor="mainColor">Couleur principale * :</label>
+              <input
+                type="color"
+                id="mainColor"
+                name="mainColor"
+                value={formData.mainColor}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="secondColor">Couleur secondaire * :</label>
+              <input
+                type="color"
+                id="secondColor"
+                name="secondColor"
+                value={formData.secondColor}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+            </div>
+
+            <p className="form-note">
+              <small>* Champs obligatoires</small>
+            </p>
+
+            {error && <div className="error">{error}</div>}
+
+            <div className="form-actions">
+              <button type="submit" disabled={isLoading}>
+                {isLoading
+                  ? "Enregistrement..."
+                  : conference
+                  ? "Modifier"
+                  : "Créer"}
+              </button>
+              <button type="button" onClick={onCancel} disabled={isLoading}>
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

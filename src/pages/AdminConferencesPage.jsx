@@ -96,39 +96,43 @@ const AdminConferencesPage = () => {
         ) : (
           <div className="conferences-grid">
             {conferences.map((conference) => (
-              <div key={conference.id} className="conference-card admin">
-                <div
-                  className="conference-header"
-                  style={{
-                    backgroundColor: conference.design?.mainColor || "#007bff",
-                  }}
-                >
+              <div
+                key={conference.id}
+                className="conference-card admin"
+                style={{
+                  "--main-color": conference.design?.mainColor || "#667eea",
+                  "--second-color": conference.design?.secondColor || "#764ba2",
+                }}
+              >
+                <div className="conference-header">
                   <h3>{conference.title}</h3>
-                  <p className="date">{conference.date}</p>
+                  <p className="conference-date">{conference.date}</p>
                 </div>
 
                 <div className="conference-content">
-                  <p>{conference.description}</p>
+                  <p className="description">{conference.description}</p>
                   {conference.duration && (
-                    <p>
+                    <p className="duration">
                       <strong>Durée :</strong> {conference.duration}
                     </p>
                   )}
                 </div>
 
-                <div className="conference-actions">
-                  <button
-                    onClick={() => handleEdit(conference)}
-                    className="btn-edit"
-                  >
-                    Modifier
-                  </button>
-                  <button
-                    onClick={() => handleDelete(conference.id)}
-                    className="btn-delete"
-                  >
-                    Supprimer
-                  </button>
+                <div className="conference-footer">
+                  <div className="conference-actions">
+                    <button
+                      onClick={() => handleEdit(conference)}
+                      className="btn-edit"
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      onClick={() => handleDelete(conference.id)}
+                      className="btn-delete"
+                    >
+                      Supprimer
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

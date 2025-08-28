@@ -115,7 +115,7 @@ export const apiService = {
   async getConference(id) {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/conferences/${encodeURIComponent(id)}`
+        `${API_BASE_URL}/conference/${encodeURIComponent(id)}`
       );
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération de la conférence");

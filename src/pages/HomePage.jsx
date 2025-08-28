@@ -58,32 +58,26 @@ const HomePage = ({ onNavigateToConference }) => {
                 onClick={() => handleConferenceClick(conference.id)}
                 style={{
                   cursor: "pointer",
-                  border: `3px solid ${
-                    conference.design?.mainColor || "#007bff"
-                  }`,
+                  "--main-color": conference.design?.mainColor || "#667eea",
+                  "--second-color": conference.design?.secondColor || "#764ba2",
                 }}
               >
-                <div
-                  className="conference-header"
-                  style={{
-                    backgroundColor: conference.design?.mainColor || "#007bff",
-                    color: conference.design?.secondColor || "#ffffff",
-                  }}
-                >
+                <div className="conference-header">
                   <h3>{conference.title}</h3>
-                  <p className="date">{conference.date}</p>
+                  <p className="conference-date">{conference.date}</p>
                 </div>
 
+                <img
+                  src={conference.img}
+                  alt={conference.title}
+                  className="conference-image"
+                  onError={(e) => {
+                    e.target.src =
+                      "https://via.placeholder.com/300x200?text=Image+non+disponible";
+                  }}
+                />
+
                 <div className="conference-content">
-                  <img
-                    src={conference.img}
-                    alt={conference.title}
-                    className="conference-image"
-                    onError={(e) => {
-                      e.target.src =
-                        "https://via.placeholder.com/300x200?text=Image+non+disponible";
-                    }}
-                  />
                   <p className="description">{conference.description}</p>
                   {conference.duration && (
                     <p className="duration">

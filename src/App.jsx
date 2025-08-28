@@ -34,9 +34,9 @@ function AppContent() {
       case "conference":
         return <ConferenceDetailPage id={selectedConferenceId} />;
       case "login":
-        return <LoginPage />;
+        return <LoginPage onNavigateToHome={() => navigateTo("home")} />;
       case "signup":
-        return <SignupPage />;
+        return <SignupPage onNavigateToLogin={() => navigateTo("login")} />;
       case "admin-conferences":
         return (
           <ProtectedRoute requireAdmin={true}>
@@ -57,26 +57,34 @@ function AppContent() {
   return (
     <div className="App">
       <nav className="simple-navigation">
-        <button onClick={() => navigateTo("home")}>Accueil</button>
+        <div className="nav-left">
+          <button onClick={() => navigateTo("home")}>Accueil</button>
+        </div>
+
         {!isAuthenticated() ? (
-          <>
+          <div className="nav-center">
             <button onClick={() => navigateTo("login")}>Connexion</button>
             <button onClick={() => navigateTo("signup")}>Inscription</button>
-          </>
+          </div>
         ) : (
           <>
-            <span>Connecté: {user?.id}</span>
-            <button onClick={logout}>Déconnexion</button>
-            {isAdmin() && (
-              <>
-                <button onClick={() => navigateTo("admin-conferences")}>
-                  Admin Conférences
-                </button>
-                <button onClick={() => navigateTo("admin-users")}>
-                  Admin Utilisateurs
-                </button>
-              </>
-            )}
+            <div className="nav-center">
+              {isAdmin() && (
+                <>
+                  <button onClick={() => navigateTo("admin-conferences")}>
+                    Admin Conférences
+                  </button>
+                  <button onClick={() => navigateTo("admin-users")}>
+                    Admin Utilisateurs
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div className="nav-right">
+              <span className="user-status">Connecté: {user?.id}</span>
+              <button onClick={logout}>Déconnexion</button>
+            </div>
           </>
         )}
       </nav>
