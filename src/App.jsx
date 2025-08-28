@@ -26,7 +26,11 @@ function AppContent() {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case "home":
-        return <HomePage />;
+        return (
+          <HomePage
+            onNavigateToConference={(id) => navigateTo("conference", id)}
+          />
+        );
       case "conference":
         return <ConferenceDetailPage id={selectedConferenceId} />;
       case "login":
