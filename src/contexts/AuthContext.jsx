@@ -20,14 +20,20 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiService.signin(id, password);
 
+      // Debug: afficher la réponse complète
+      console.log("Réponse complète de l'API:", response);
+
       // Déterminer le type d'utilisateur basé sur l'ID
       // Pour l'instant, on considère que les utilisateurs avec "admin" dans l'ID sont des admins
       const userType = id.includes("admin") ? "admin" : "user";
 
+      // L'API retourne directement le token JWT comme une chaîne
+      const token = response;
+
       const userData = {
         id: id,
         type: userType,
-        token: response.token,
+        token: token,
       };
 
       console.log("Utilisateur connecté:", userData);

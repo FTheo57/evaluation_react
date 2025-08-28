@@ -102,7 +102,7 @@ export const apiService = {
   // Conférences
   async getConferences() {
     try {
-      const response = await fetch(`${API_BASE_URL}/conference/getAll`);
+      const response = await fetch(`${API_BASE_URL}/conferences`);
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération des conférences");
       }
@@ -114,7 +114,9 @@ export const apiService = {
 
   async getConference(id) {
     try {
-      const response = await fetch(`${API_BASE_URL}/conference/get?id=${id}`);
+      const response = await fetch(
+        `${API_BASE_URL}/conferences/${encodeURIComponent(id)}`
+      );
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération de la conférence");
       }
@@ -124,10 +126,90 @@ export const apiService = {
     }
   },
 
+  async createConference(conferenceData, token) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/conference`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(conferenceData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(
+          `Erreur lors de la création: ${response.status} - ${errorData}`
+        );
+      }
+
+      return await response.json();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+
+  async updateConference(id, conferenceData, token) {
+    try {
+      console.log(
+        "URL de modification:",
+        `${API_BASE_URL}/conference/${encodeURIComponent(id)}`
+      );
+      const response = await fetch(
+        `${API_BASE_URL}/conference/${encodeURIComponent(id)}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(conferenceData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(
+          `Erreur lors de la modification: ${response.status} - ${errorData}`
+        );
+      }
+
+      return await response.json();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+
+  async deleteConference(id, token) {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/conference/${encodeURIComponent(id)}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(
+          `Erreur lors de la suppression: ${response.status} - ${errorData}`
+        );
+      }
+
+      return await response.json();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+
   // Utilisateurs (admin seulement)
   async getUsers() {
     try {
-      const response = await fetch(`${API_BASE_URL}/user/getAll`);
+      const response = await fetch(`${API_BASE_URL}/users`);
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération des utilisateurs");
       }
